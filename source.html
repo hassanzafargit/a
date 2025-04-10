@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Years of Us</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #f7d9d9;
+            --text: #333;
+            --light: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: var(--secondary);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .subtitle {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .heart {
+            color: var(--primary);
+            font-size: 1.5em;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        .counter {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .counter span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .img-placeholder {
+            width: 150px;
+            height: 150px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 600px) {
+            .img-placeholder {
+                width: 130px;
+                height: 130px;
+            }
+        }
+        
+        .notes-container {
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 10px auto;
+        }
+        
+        .love-notes {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: var(--light);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .note {
+            background-color: var(--secondary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .note:last-child {
+            margin-bottom: 0;
+        }
+        
+        .note-date {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--secondary);
+            margin-top: 30px;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        .add-note {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #e45c5c;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+        
+        .special-moments {
+            margin: 40px 0;
+        }
+        
+        .moment {
+            display: flex;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+        }
+        
+        @media (min-width: 768px) {
+            .moment {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+        
+        .moment-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 15px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .moment-icon {
+                margin-bottom: 0;
+            }
+        }
+        
+        .moment-content {
+            flex: 1;
+        }
+        
+        .moment-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Three Years of Love</h1>
+        <p class="subtitle">Celebrating our beautiful journey together</p>
+        <div class="heart">❤️</div>
+    </header>
+    
+    <div class="counter">
+        <p>We've been together for <span id="days">1095</span> days of laughter, love, and memories.</p>
+    </div>
+    
+    <div class="gallery">
+        <div class="img-placeholder">Photo 1</div>
+        <div class="img-placeholder">Photo 2</div>
+        <div class="img-placeholder">Photo 3</div>
+        <div class="img-placeholder">Photo 4</div>
+    </div>
+    
+    <div class="special-moments">
+        <h2 class="section-title">Our Special Moments</h2>
+        
+        <div class="moment">
+            <div class="moment-icon">✨</div>
+            <div class="moment-content">
+                <div class="moment-title">First Meeting</div>
+                <p>The day we first met, my world changed forever. Your smile lit up the room, and I knew instantly you were someone special.</p>
+            </div>
+        </div>
+        
+        <div class="moment">
+            <div class="moment-icon">🌙</div>
+            <div class="moment-content">
+                <div class="moment-title">First Date</div>
+                <p>Remember that nervous excitement as we sat across from each other? How time seemed to stop as we talked for hours.</p>
+            </div>
+        </div>
+        
+        <div class="moment">
+            <div class="moment-icon">🎁</div>
+            <div class="moment-content">
+                <div class="moment-title">First Anniversary</div>
+                <p>One year down, forever to go. That day we celebrated how far we'd come and dreamed about our future.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notes-container">
+        <h2 class="section-title">Love Notes</h2>
+        
+        <div class="love-notes" id="notesContainer">
+            <div class="note">
+                <p>From the moment we met three years ago, I knew there was something special about you. The way you laugh, the way you see the world, the way you make everything brighter just by being you - I fall more in love with you every day.</p>
+                <div class="note-date">April 9, 2025</div>
+            </div>
+            
+            <div class="note">
+                <p>Three years of memories, adventures, quiet moments, and everything in between. Thank you for being my partner, my best friend, and my favorite person. I cherish every moment we spend together.</p>
+                <div class="note-date">April 9, 2025</div>
+            </div>
+            
+            <div class="note">
+                <p>You know all my quirks and still choose to love me every day. That's the most beautiful gift anyone has ever given me. Here's to many more years of growing together.</p>
+                <div class="note-date">April 9, 2025</div>
+            </div>
+        </div>
+        
+        <div class="add-note">
+            <button id="openModalBtn">Add New Note</button>
+        </div>
+    </div>
+    
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add a New Love Note</h3>
+                <span class="close">&times;</span>
+            </div>
+            <textarea id="newNote" placeholder="Write your love note here..."></textarea>
+            <button id="addNoteBtn">Add Note</button>
+        </div>
+    </div>
+    
+    <footer>
+        <p>With all my love today and always ❤️</p>
+        <p class="subtitle">April 9, 2022 - April 9, 2025</p>
+    </footer>
+</div>
+
+<script>
+    // Calculate days together
+    const startDate = new Date('2022-04-09');
+    const today = new Date();
+    const diffTime = Math.abs(today - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    document.getElementById('days').textContent = diffDays;
+    
+    // Modal functionality
+    const modal = document.getElementById('noteModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.querySelector('.close');
+    const addNoteBtn = document.getElementById('addNoteBtn');
+    const notesContainer = document.getElementById('notesContainer');
+    
+    openModalBtn.addEventListener('click', function() {
+        modal.style.display = 'flex';
+    });
+    
+    closeModalBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    addNoteBtn.addEventListener('click', function() {
+        const noteText = document.getElementById('newNote').value.trim();
+        if (noteText !== '') {
+            const today = new Date();
+            const dateString = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            
+            const newNote = document.createElement('div');
+            newNote.className = 'note';
+            newNote.innerHTML = `
+                <p>${noteText}</p>
+                <div class="note-date">${dateString}</div>
+            `;
+            
+            notesContainer.prepend(newNote);
+            document.getElementById('newNote').value = '';
+            modal.style.display = 'none';
+            
+            // Save to localStorage
+            saveNotes();
+        }
+    });
+    
+    // Load and save notes to localStorage
+    function loadNotes() {
+        const savedNotes = localStorage.getItem('loveNotes');
+        if (savedNotes) {
+            notesContainer.innerHTML = savedNotes;
+        }
+    }
+    
+    function saveNotes() {
+        localStorage.setItem('loveNotes', notesContainer.innerHTML);
+    }
+    
+    // Load notes when page loads
+    document.addEventListener('DOMContentLoaded', loadNotes);
+</script>
+</body>
+</html>
