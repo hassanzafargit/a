@@ -6,14 +6,15 @@
     <title>Three Years of Us</title>
     <style>
         :root {
-            --misty-rose: #ffe5ec;
-            --pink: #ffc2d1;
-            --cherry-blossom: #ffb3c6;
-            --baker-miller: #ff8fab;
-            --rose-pompadour: #fb6f92;
-            --dark: #323641;
+            --primary: #ff85a2;
+            --primary-dark: #ff5c8a;
+            --primary-light: #ffc2d1;
+            --secondary: #ffd1dc;
+            --accent: #ff1493;
             --text: #333;
             --light: #fff;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
         
         * {
@@ -24,12 +25,22 @@
         }
         
         body {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--light) 30%, var(--primary-light) 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
-            height: 100vh;
+            min-height: 100vh;
             width: 100vw;
+        }
+        
+        /* Glassmorphism base style */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         /* Mail Animation Styles */
@@ -39,7 +50,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--light) 30%, var(--primary-light) 100%);
             z-index: 100;
             transition: transform 0.8s ease-in-out;
         }
@@ -72,7 +83,7 @@
             height: 0;
             border-style: solid;
             border-width: 0 0 100px 200px;
-            border-color: transparent transparent var(--baker-miller) transparent;
+            border-color: transparent transparent var(--primary) transparent;
             z-index: 2;
         }
         
@@ -85,7 +96,7 @@
             border-width: 50px 100px 0 100px;
             transform-origin: 50% 0%;
             transition: transform .4s .4s, z-index .2s .4s;
-            border-color: var(--rose-pompadour) transparent transparent transparent;
+            border-color: var(--primary-dark) transparent transparent transparent;
             z-index: 2;
         }
         
@@ -94,7 +105,7 @@
             bottom: 0;
             width: 200px;
             height: 100px;
-            background: var(--rose-pompadour);
+            background: var(--primary-dark);
             z-index: 0;
         }
         
@@ -105,7 +116,7 @@
             height: 0;
             border-style: solid;
             border-width: 50px 0 50px 100px;
-            border-color: transparent transparent transparent var(--cherry-blossom);
+            border-color: transparent transparent transparent var(--secondary);
             z-index: 2;
         }
         
@@ -126,8 +137,8 @@
             width: 100%;
             background: repeating-linear-gradient(
                 -45deg,
-                var(--rose-pompadour),
-                var(--rose-pompadour) 8px,
+                var(--primary-dark),
+                var(--primary-dark) 8px,
                 transparent 8px,
                 transparent 18px
             );
@@ -138,7 +149,7 @@
             margin-left: 5px;
             height: 10px;
             width: 40%;
-            background: var(--rose-pompadour);
+            background: var(--primary-dark);
         }
         
         .animated-mail .letter .letter-context {
@@ -146,7 +157,7 @@
             margin-left: 5px;
             height: 10px;
             width: 20%;
-            background: var(--rose-pompadour);
+            background: var(--primary-dark);
         }
         
         .animated-mail .letter .letter-stamp {
@@ -155,20 +166,8 @@
             border-radius: 100%;
             height: 30px;
             width: 30px;
-            background: var(--rose-pompadour);
+            background: var(--primary-dark);
             opacity: 0.3;
-        }
-        
-        .shadow {
-            position: absolute;
-            top: 200px;
-            left: 50%;
-            width: 400px;
-            height: 30px;
-            transition: .4s;
-            transform: translateX(-50%);
-            border-radius: 100%;
-            background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.0), rgba(0,0,0,0.0));
         }
         
         .letter-image:hover .animated-mail {
@@ -185,16 +184,12 @@
             height: 180px;
         }
         
-        .letter-image:hover .shadow {
-            width: 250px;
-        }
-        
         .open-text {
             position: absolute;
             bottom: 20%;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--light);
+            color: var(--text);
             text-align: center;
             font-size: 1.2rem;
             opacity: 0;
@@ -207,17 +202,17 @@
         
         /* Main Content Styles */
         .container {
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 20px;
-            background-color: var(--misty-rose);
+            padding: 0;
             min-height: 100vh;
         }
         
         header {
             text-align: center;
             padding: 30px 0;
-            background-color: var(--pink);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            width: 100%;
             border-radius: 0 0 30px 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -237,32 +232,50 @@
             font-weight: bold;
             min-height: 3rem;
             margin: 0 auto;
+            color: var(--light);
         }
         
         .static-text {
-            color: var(--rose-pompadour);
+            color: var(--light);
         }
         
-        #changingText {
-            color: var(--rose-pompadour);
-            display: inline-block;
-            min-width: 10ch;
-        }
-        
-        .typing-cursor {
-            position: absolute;
-            display: inline-block;
-            width: 3px;
-            height: 80%;
-            background-color: var(--text);
-            animation: blink 0.8s infinite;
-            top: 10%;
-            vertical-align: middle;
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
         }
         
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
+        }
+        
+        .dynamic-text-wrapper {
+            position: relative;
+            display: inline-block;
+            min-width: 10ch;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .dynamic-text {
+            display: inline-block;
+            color: var(--accent);
+            position: relative;
+            white-space: nowrap;
+            margin: 0;
+            animation: typing 3.5s steps(30, end);
+        }
+        
+        .typing-cursor {
+            position: absolute;
+            right: -5px;
+            display: inline-block;
+            width: 3px;
+            height: 80%;
+            background-color: var(--light);
+            animation: blink 0.8s infinite;
+            top: 10%;
+            vertical-align: middle;
         }
         
         @media (max-width: 768px) {
@@ -274,13 +287,21 @@
         .subtitle {
             font-style: italic;
             margin-bottom: 20px;
-            color: var(--text);
+            color: var(--light);
+        }
+        
+        .hearts-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
         }
         
         .heart {
-            color: var(--rose-pompadour);
+            color: var(--light);
             font-size: 1.5em;
             animation: pulse 1.5s infinite;
+            animation-delay: calc(var(--i) * 0.3s);
         }
         
         @keyframes pulse {
@@ -290,27 +311,30 @@
         }
         
         .counter {
-            margin: 20px 0;
+            margin: 30px auto;
             text-align: center;
             font-size: 1.2rem;
             padding: 15px;
-            background-color: var(--pink);
+            max-width: 600px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--light);
             border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         
         .counter span {
             font-weight: bold;
-            color: var(--rose-pompadour);
+            color: var(--light);
         }
         
-        .notes-container {
-            margin: 40px 0;
+        .content-section {
+            padding: 20px;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 20px;
-            color: var(--rose-pompadour);
+            margin: 40px 0 30px;
+            color: var(--primary-dark);
             position: relative;
         }
         
@@ -319,27 +343,100 @@
             display: block;
             width: 50px;
             height: 3px;
-            background-color: var(--rose-pompadour);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
             margin: 10px auto;
+        }
+        
+        /* Special Moments */
+        .special-moments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+        
+        .moment {
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .moment:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .moment:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 132, 162, 0.1) 100%);
+            z-index: -1;
+        }
+        
+        .moment-date {
+            font-weight: bold;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .moment-content {
+            line-height: 1.7;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+        
+        .moment:hover .moment-content {
+            opacity: 1;
+        }
+        
+        /* Love Notes Carousel */
+        .notes-container {
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 0 20px;
         }
         
         .carousel-container {
             position: relative;
             max-width: 100%;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         .carousel {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            height: 400px;
+            height: 300px;
         }
         
         .note {
             min-width: 100%;
-            background-color: var(--pink);
+            background: transparent;
             padding: 30px;
             display: flex;
             flex-direction: column;
@@ -353,73 +450,65 @@
         
         .note-date {
             text-align: right;
-            font-size: 0.8rem;
-            color: #777;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
             margin-top: 15px;
         }
         
-        .carousel-numbers {
+        .carousel-indicators {
             display: flex;
             justify-content: center;
             margin-top: 15px;
             margin-bottom: 5px;
         }
         
-        .number {
-            width: 30px;
-            height: 30px;
+        .indicator {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background-color: var(--pink);
-            margin: 0 5px;
+            background-color: var(--primary-light);
+            margin: 0 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: var(--text);
+            transition: background-color 0.3s, transform 0.3s;
         }
         
-        .number.active {
-            background-color: var(--rose-pompadour);
-            color: white;
-        }
-        
-        .special-moments {
-            margin: 40px 0;
-        }
-        
-        .moment {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: var(--pink);
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .moment-date {
-            font-weight: bold;
-            font-size: 1.3rem;
-            color: var(--rose-pompadour);
-            margin-bottom: 10px;
-        }
-        
-        .moment-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .moment-content {
-            line-height: 1.7;
+        .indicator.active {
+            background-color: var(--accent);
+            transform: scale(1.2);
         }
         
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: var(--pink);
-            margin-top: 30px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--light);
+            margin-top: 40px;
+            width: 100%;
             border-radius: 30px 30px 0 0;
+        }
+        
+        footer .subtitle {
+            margin-top: 10px;
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .moment {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .moment {
+                height: 180px;
+            }
+            
+            .carousel {
+                height: 350px;
+            }
         }
     </style>
 </head>
@@ -441,7 +530,6 @@
                 <div class="body"></div>
                 <div class="left-fold"></div>
             </div>
-            <div class="shadow"></div>
         </div>
         <div class="open-text">Click to open our anniversary letter</div>
     </div>
@@ -451,85 +539,88 @@
         <header>
             <div class="typing-container">
                 <span class="static-text">Happy three years of us, </span>
-                <span id="changingText"></span>
-                <span class="typing-cursor" id="cursor"></span>
+                <span class="dynamic-text-wrapper">
+                    <span id="dynamicText" class="dynamic-text"></span>
+                    <span class="typing-cursor"></span>
+                </span>
             </div>
             <p class="subtitle">Celebrating our beautiful journey together</p>
-            <div class="heart">❤️</div>
+            <div class="hearts-container">
+                <div class="heart" style="--i:0">❤️</div>
+                <div class="heart" style="--i:1">❤️</div>
+                <div class="heart" style="--i:2">❤️</div>
+                <div class="heart" style="--i:3">❤️</div>
+                <div class="heart" style="--i:4">❤️</div>
+            </div>
         </header>
         
-        <div class="counter">
-            <p>I have endured <span id="days">1095</span> days of bullying from you</p>
-        </div>
-        
-        <div class="special-moments">
+        <div class="content-section">
+            <div class="counter glass">
+                <p>I have endured <span id="days">1095</span> days of bullying from you</p>
+            </div>
+            
             <h2 class="section-title">Our Special Moments</h2>
-            
-            <div class="moment">
-                <div class="moment-date">12th April</div>
-                <div class="moment-title">First Meeting</div>
-                <div class="moment-content">
-                    <p>Uhuh the day you wanted a follow back but got a soulmate instead</p>
+            <div class="special-moments">
+                <div class="moment">
+                    <div class="moment-date">12th April</div>
+                    <div class="moment-content">
+                        <p>The day you wanted a follow back but got a soulmate instead</p>
+                    </div>
+                </div>
+                
+                <div class="moment">
+                    <div class="moment-date">14th Feb</div>
+                    <div class="moment-content">
+                        <p>How could we have known that it'll become a daily occurrence. I'm so lucky to have you, Maryam</p>
+                    </div>
+                </div>
+                
+                <div class="moment">
+                    <div class="moment-date">24th July</div>
+                    <div class="moment-content">
+                        <p>I'll forever be grateful for my massive courage and my stutter as I asked you out for blessing me with meeting my soulmate</p>
+                    </div>
+                </div>
+                
+                <div class="moment">
+                    <div class="moment-date">????</div>
+                    <div class="moment-content">
+                        <p>Living life for that goal at this point. I can't wait meri jaaneman ❤️</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="moment">
-                <div class="moment-date">14th Feb</div>
-                <div class="moment-title">First I love you</div>
-                <div class="moment-content">
-                    <p>How could we have known that itll become a daily occurance im so lucky to have you maryam</p>
-                </div>
-            </div>
-            
-            <div class="moment">
-                <div class="moment-date">24th July</div>
-                <div class="moment-title">First day as a couple</div>
-                <div class="moment-content">
-                    <p>Ill forever be grateful for my massive balls, my stutter as i asked you out for blessing me with meeting my soulmate</p>
-                </div>
-            </div>
-            
-            <div class="moment">
-                <div class="moment-date">????</div>
-                <div class="moment-title">First day as a married couple</div>
-                <div class="moment-content">
-                    <p>Living life for that goal at this points. I cant wait meri jaaneman <3</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="notes-container">
             <h2 class="section-title">Love Notes</h2>
-            
-            <div class="carousel-numbers" id="carouselNumbers"></div>
-            
-            <div class="carousel-container">
-                <div class="carousel" id="notesCarousel">
-                    <div class="note">
-                        <p>From the moment we met three years ago, I knew there was something special about you. The way you laugh, the way you see the world, the way you make everything brighter just by being you - I fall more in love with you every day. Every morning I wake up and thank the universe for bringing you into my life. Your kindness, your strength, your determination inspire me daily. I love how we can talk for hours about anything and everything, and how comfortable silence feels when I'm with you. Thank you for being my partner in crime, my best friend, and the love of my life.</p>
-                        <div class="note-date">April 12, 2022 - 3:54 PM</div>
-                    </div>
-                    
-                    <div class="note">
-                        <p>Three years of memories, adventures, quiet moments, and everything in between. Thank you for being my partner, my best friend, and my favorite person. I cherish every moment we spend together. I love how we've grown individually and as a couple. I love how you push me to be better, how you support me through my worst times, and celebrate with me during my best times. You've seen me at my lowest and my highest, and your love has never wavered. You make me feel safe, understood, and treasured. I promise to continue loving you with all my heart, to be there for you always, and to build a beautiful life with you.</p>
-                        <div class="note-date">April 12, 2022 - 3:54 PM</div>
-                    </div>
-                    
-                    <div class="note">
-                        <p>You know all my quirks and still choose to love me every day. That's the most beautiful gift anyone has ever given me. Here's to many more years of growing together. I love the way you scrunch your nose when you laugh, how passionate you get when talking about things you love, and how you always make time for the people who matter to you. I love our inside jokes, our silly traditions, and how we can communicate with just a look. I'm so proud of everything you've accomplished and everything you will achieve in the future. I can't wait to see where life takes us next, but I know it will be amazing because we'll be together.</p>
-                        <div class="note-date">April 12, 2022 - 3:54 PM</div>
-                    </div>
-                    
-                    <div class="note">
-                        <p>I love how we can be completely ourselves with each other. The way you understand me without words, how you know exactly what I need even before I do. You're the best part of every day. From our first conversation, I felt like I'd known you forever. It's like my soul recognized yours. Three years later, and that feeling has only grown stronger. I love our adventures together, whether it's traveling somewhere new or just cooking dinner at home. Every moment with you is special. You've taught me so much about love, patience, and what it means to truly care for someone. I never knew I could love someone as much as I love you, and that love grows deeper every day.</p>
-                        <div class="note-date">April 12, 2022 - 3:54 PM</div>
-                    </div>
-                    
-                    <div class="note">
-                        <p>Three years ago, I had no idea how much my life would change when you walked into it. Every laugh, every tear, every challenge we've faced together has only made our love stronger. I'm so grateful for you. I love planning our future together, dreaming about the home we'll build, the places we'll visit, the life we'll share. You make me feel like anything is possible. Thank you for your patience during difficult times, for your forgiveness when I make mistakes, and for your unwavering belief in me. You are my rock, my home, my heart. I promise to spend every day showing you how much you mean to me. Happy anniversary, my love. Here's to forever with you.</p>
-                        <div class="note-date">April 12, 2022 - 3:54 PM</div>
+            <div class="notes-container">
+                <div class="carousel-container">
+                    <div class="carousel" id="notesCarousel">
+                        <div class="note">
+                            <p>From the moment we met three years ago, I knew there was something special about you. The way you laugh, the way you see the world - I fall more in love with you every day. Every morning I wake up and thank the universe for bringing you into my life. Your kindness, your strength, and your determination inspire me daily.</p>
+                            <div class="note-date">April 12, 2022 - 3:54 PM</div>
+                        </div>
+                        
+                        <div class="note">
+                            <p>Three years of memories, adventures, and quiet moments. Thank you for being my partner, my best friend, and my favorite person. I love how we've grown individually and as a couple. You've seen me at my lowest and my highest, and your love has never wavered. You make me feel safe, understood, and treasured.</p>
+                            <div class="note-date">July 24, 2022 - 5:18 PM</div>
+                        </div>
+                        
+                        <div class="note">
+                            <p>You know all my quirks and still choose to love me every day. That's the most beautiful gift anyone has ever given me. I love the way you scrunch your nose when you laugh and how passionate you get when talking about things you love. Our inside jokes and how we can communicate with just a look mean everything to me.</p>
+                            <div class="note-date">February 14, 2023 - 7:30 PM</div>
+                        </div>
+                        
+                        <div class="note">
+                            <p>I love how we can be completely ourselves with each other. The way you understand me without words, how you know exactly what I need even before I do. From our first conversation, I felt like I'd known you forever. Every moment with you is special, whether we're traveling somewhere new or just cooking dinner at home.</p>
+                            <div class="note-date">April 12, 2023 - 9:15 AM</div>
+                        </div>
+                        
+                        <div class="note">
+                            <p>Three years ago, I had no idea how much my life would change when you walked into it. Every laugh, every tear, every challenge we've faced together has only made our love stronger. I love planning our future together and dreaming about the home we'll build. Thank you for your patience, forgiveness, and unwavering belief in me.</p>
+                            <div class="note-date">April 12, 2024 - 11:42 AM</div>
+                        </div>
                     </div>
                 </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
             </div>
         </div>
         
@@ -546,44 +637,28 @@
         });
         
         // Typing animation for "my love", "my bubby", "my chunni" with static "Happy three years of us"
-        const changingWords = ["my love", "my chunni", "my bubby"];
-        const changingText = document.getElementById('changingText');
-        const cursor = document.getElementById('cursor');
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingSpeed = 150;
+        const changingTexts = ["my love", "my chunni", "my bubby"];
+        let currentTextIndex = 0;
+        const dynamicTextElement = document.getElementById('dynamicText');
         
-        function typeEffect() {
-            const currentWord = changingWords[wordIndex];
+        function updateText() {
+            // Clear current text
+            dynamicTextElement.textContent = '';
             
-            if (isDeleting) {
-                // Deleting animation
-                changingText.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-                typingSpeed = 80; // faster when deleting
-            } else {
-                // Typing animation
-                changingText.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-                typingSpeed = 150; // slower when typing
-            }
+            // Set new text
+            const newText = changingTexts[currentTextIndex];
+            dynamicTextElement.textContent = newText;
             
-            // Position cursor at the end of text
-            cursor.style.left = (changingText.offsetLeft + changingText.offsetWidth) + 'px';
+            // Update animation
+            dynamicTextElement.style.animation = 'none';
+            void dynamicTextElement.offsetWidth; // Trigger reflow
+            dynamicTextElement.style.animation = 'typing 3s steps(30, end)';
             
-            // Check if word is complete
-            if (!isDeleting && charIndex === currentWord.length) {
-                // Pause at the end of word
-                isDeleting = true;
-                typingSpeed = 1000; // wait before deleting
-            } else if (isDeleting && charIndex === 0) {
-                // Move to next word
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % changingWords.length;
-            }
+            // Prepare for next text
+            currentTextIndex = (currentTextIndex + 1) % changingTexts.length;
             
-            setTimeout(typeEffect, typingSpeed);
+            // Schedule next update
+            setTimeout(updateText, 4000);
         }
         
         // Start the typing animation
@@ -591,8 +666,22 @@
             // Don't start typing until mail animation is done
             document.getElementById('mailContainer').addEventListener('transitionend', function() {
                 if (this.classList.contains('mail-exit')) {
-                    setTimeout(typeEffect, 500); // Slight delay after mail exits
+                    setTimeout(updateText, 500); // Start typing animation after mail exits
                 }
+            });
+            
+            // Stagger animation of moment cards
+            const moments = document.querySelectorAll('.moment');
+            moments.forEach((moment, index) => {
+                moment.style.opacity = '0';
+                moment.style.transform = 'translateY(20px)';
+                moment.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                moment.style.transitionDelay = `${index * 0.2}s`;
+                
+                setTimeout(() => {
+                    moment.style.opacity = '1';
+                    moment.style.transform = 'translateY(0)';
+                }, 500 + (index * 200));
             });
         };
         
@@ -603,32 +692,31 @@
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         document.getElementById('days').textContent = diffDays;
         
-        // Carousel functionality with numbered buttons
+        // Carousel functionality with dot indicators
         const carousel = document.getElementById('notesCarousel');
-        const numbersContainer = document.getElementById('carouselNumbers');
+        const indicatorsContainer = document.getElementById('carouselIndicators');
         const notes = carousel.querySelectorAll('.note');
         let currentIndex = 0;
         
-        // Create numbered buttons based on number of notes
+        // Create dot indicators
         notes.forEach((_, index) => {
-            const number = document.createElement('div');
-            number.className = 'number';
-            number.textContent = index + 1;
-            if (index === 0) number.classList.add('active');
-            number.addEventListener('click', () => goToSlide(index));
-            numbersContainer.appendChild(number);
+            const indicator = document.createElement('div');
+            indicator.className = 'indicator';
+            if (index === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => goToSlide(index));
+            indicatorsContainer.appendChild(indicator);
         });
         
         function updateCarousel() {
             carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
             
-            // Update active number
-            const numbers = document.querySelectorAll('.number');
-            numbers.forEach((number, index) => {
+            // Update active indicator
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
                 if (index === currentIndex) {
-                    number.classList.add('active');
+                    indicator.classList.add('active');
                 } else {
-                    number.classList.remove('active');
+                    indicator.classList.remove('active');
                 }
             });
         }
@@ -638,17 +726,41 @@
             updateCarousel();
         }
         
+        // Auto-rotate carousel
+        let carouselInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % notes.length;
+            updateCarousel();
+        }, 8000);
+        
+        // Pause auto-rotation when interacting with carousel
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(carouselInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+            carouselInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % notes.length;
+                updateCarousel();
+            }, 8000);
+        });
+        
         // Touch swipe functionality for mobile
         let touchStartX = 0;
         let touchEndX = 0;
         
         carousel.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
+            clearInterval(carouselInterval);
         });
         
         carousel.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
+            
+            carouselInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % notes.length;
+                updateCarousel();
+            }, 8000);
         });
         
         function handleSwipe() {
